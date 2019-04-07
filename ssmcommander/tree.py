@@ -1,6 +1,5 @@
-import boto3
-from click import echo
 import treelib
+from treelib.exceptions import DuplicatedNodeIdError
 import yaml
 
 path_separator = '/'
@@ -51,7 +50,7 @@ class Tree:
             for node in self.get_tree_from_path(item['name']):
                 try:
                     self.tree.create_node(node['node'], node['id'], parent=node['parent'], data=item)
-                except:
+                except DuplicatedNodeIdError:
                     pass
 
     def echo(self):

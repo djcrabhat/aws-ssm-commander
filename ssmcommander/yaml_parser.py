@@ -84,7 +84,7 @@ class InputFile:
                     params['Description'] = description
 
                 log.debug("writing to {}".format(ssm_path))
-                response = client.put_parameter(**params)
+                client.put_parameter(**params)
                 param_count += 1
             except Exception as ex:
                 log.exception("error witting to ssm")

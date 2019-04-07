@@ -6,12 +6,14 @@ import boto3
 
 log = logging.getLogger()
 
+
 def get_session(region=None):
     if region:
         session = boto3.Session(region_name=region)
     else:
         session = boto3.Session()
     return session
+
 
 @click.group()
 @click.option('--debug', prompt=False, is_flag=True)
@@ -28,6 +30,7 @@ def cli(debug):
         log.debug("debug logging on")
     pass
 
+
 @click.command()
 @click.option('--region', prompt=False)
 @click.argument('ssm_prefix')
@@ -37,6 +40,7 @@ def dump(region, ssm_prefix):
     tree = Tree(ssm_prefix, session)
     tree.fetch_from_ssm(with_decryption=True)
     tree.dump()
+
 
 @click.command()
 @click.option('--region', prompt=False)
