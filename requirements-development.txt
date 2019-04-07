@@ -1,0 +1,6 @@
+click
+boto3
+pyyaml
+treelib
+flake8
+pytest
