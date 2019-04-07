@@ -1,5 +1,7 @@
 # aws-ssm-commander
 
+[![Build Status](https://travis-ci.org/djcrabhat/aws-ssm-commander.svg?branch=master)](https://travis-ci.org/djcrabhat/aws-ssm-commander)
+
 Inspired by [aws-ssm-tree](https://github.com/brunorubin/aws-ssm-tree)
 
 ## Usage
