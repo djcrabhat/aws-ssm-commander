@@ -4,6 +4,11 @@
 
 Inspired by [aws-ssm-tree](https://github.com/brunorubin/aws-ssm-tree)
 
+## Install
+```
+pip install aws-ssm-commander
+```
+
 ## Usage
 ```
 Options:
