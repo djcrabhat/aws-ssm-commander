@@ -20,6 +20,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        ssm-commander=ssmcommander.cli:cli
+        aws-ssm-commander=ssmcommander.cli:cli
     ''',
 )
