@@ -1,0 +1,3 @@
+section_bad_kms_value:
+  username: foobar
+  password: !kms WW05aWJHRjNZbXh2WWc9PQ==

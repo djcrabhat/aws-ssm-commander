@@ -2,7 +2,10 @@ language: python
 python:
   - "2.7"
   - "3.6"
-install: "pip install -r requirements-development.txt"
+install:
+  - "pip install -r requirements-development.txt"
 script:
+    - export BOTO_CONFIG=/dev/null
+    - export AWS_DEFAULT_REGION=us-west-2
     - flake8 ssmcommander
-    - pytest
+    - pytest ssmcommander
