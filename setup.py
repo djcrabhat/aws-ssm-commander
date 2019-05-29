@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
     name='aws-ssm-commander',
     version='0.0.1',
-    packages=find_packages(),
+    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     include_package_data=True,
     long_description=long_description,
     description="A utility for dealing with AWS SSM Parameter Store",

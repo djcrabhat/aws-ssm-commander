@@ -1,7 +1,12 @@
 from click import open_file, secho
+from click.exceptions import BadParameter
 import yaml
 import treelib
 import logging
+import boto3
+import base64
+from botocore.exceptions import ClientError
+import binascii
 
 log = logging.getLogger()
 
@@ -9,21 +14,37 @@ log = logging.getLogger()
 loader = yaml.SafeLoader
 
 
-def kms_ctor(loader, node):
-    # TODO: parse kms
-    return node.value
-
-
-yaml.add_constructor(u'!kms', kms_ctor, yaml.SafeLoader)
-
-
 class InputFile:
-    def __init__(self, file):
+    def __init__(self, file, kms_session=None):
+        if kms_session:
+            self.kms_session = kms_session
+        else:
+            self.kms_session = boto3.Session()
+
+        yaml.add_constructor(u'!kms', self.kms_ctor, yaml.SafeLoader)
 
         with open_file(file) as f:
             self.raw_data = yaml.load(f, loader)
 
         self.build_config_tree()
+
+    def kms_ctor(self, loader, node):
+        try:
+            binary_data = base64.b64decode(node.value)
+
+            if self.kms_session is None:
+                raise BadParameter("could not establish a KMS session")
+            kms = self.kms_session.client('kms')
+            meta = kms.decrypt(CiphertextBlob=binary_data)
+
+            unencrypted = meta[u'Plaintext'].decode()
+            return unencrypted
+        except ClientError as ex:
+            secho(ex.response['Error']['Code'])
+            raise BadParameter("could not decode !kms value: {}".format(ex))
+        except binascii.Error as ex:
+            secho("Cannot parse b64 blob: {}".format(ex))
+            raise BadParameter("could not decode !kms value: {}".format(ex))
 
     def build_config_tree(self):
         self.input_tree = treelib.Tree()

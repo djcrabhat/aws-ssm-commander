@@ -1,0 +1,9 @@
+section_a:
+  username: abc123
+section_b:
+  username: foobar
+  password: bar
+section_c:
+  a:
+    little:
+      more: nested
