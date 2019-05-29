@@ -2,7 +2,8 @@ language: python
 python:
   - "2.7"
   - "3.6"
-install: "pip install -r requirements-development.txt"
+install:
+  - "pip install -r requirements-development.txt"
 script:
     - flake8 ssmcommander
-    - pytest
+    - pytest ssmcommander

@@ -13,9 +13,6 @@ log = logging.getLogger()
 loader = yaml.SafeLoader
 
 
-
-
-
 class InputFile:
     def __init__(self, file, kms_session=None):
         if kms_session:
@@ -27,7 +24,6 @@ class InputFile:
 
         with open_file(file) as f:
             self.raw_data = yaml.load(f, loader)
-
 
         self.build_config_tree()
 
@@ -45,8 +41,6 @@ class InputFile:
         except ClientError as ex:
             secho(ex.response['Error']['Code'])
             raise BadParameter("could not decode !kms value: {}".format(ex))
-
-
 
     def build_config_tree(self):
         self.input_tree = treelib.Tree()
