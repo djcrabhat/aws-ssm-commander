@@ -6,6 +6,7 @@ import logging
 import boto3
 import base64
 from botocore.exceptions import ClientError
+import binascii
 
 log = logging.getLogger()
 
@@ -28,9 +29,8 @@ class InputFile:
         self.build_config_tree()
 
     def kms_ctor(self, loader, node):
-        binary_data = base64.b64decode(node.value)
-
         try:
+            binary_data = base64.b64decode(node.value)
             if self.kms_session is None:
                 raise BadParameter("could not establish a KMS session")
             kms = self.kms_session.client('kms')
@@ -40,6 +40,9 @@ class InputFile:
             return unencrypted
         except ClientError as ex:
             secho(ex.response['Error']['Code'])
+            raise BadParameter("could not decode !kms value: {}".format(ex))
+        except binascii.Error as ex:
+            secho("Cannot parse b64 blob: {}".format(ex))
             raise BadParameter("could not decode !kms value: {}".format(ex))
 
     def build_config_tree(self):

@@ -3,7 +3,10 @@ from ssmcommander.yaml_parser import InputFile
 import click.exceptions
 import os
 
+from moto import mock_kms
 
+
+@mock_kms
 class MyTestCase(unittest.TestCase):
     def test_bad_kms_block(self):
         with self.assertRaises(click.exceptions.BadParameter):
