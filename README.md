@@ -48,3 +48,8 @@ abc
 
 ### write
 Takes a yaml input file and a path prefix, and writes params to SSM.
+```bash
+
+KEY_ID=1234abcd-12ab-34cd-56ef-1234567890ab
+aws kms encrypt --key-id  --plaintext "MY_SECRET" --output text --query CiphertextBlob | base64 --decode > ExampleEncryptedFile
+```
