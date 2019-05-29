@@ -1,16 +1,17 @@
 import unittest
 from ssmcommander.yaml_parser import InputFile
 import click.exceptions
+import os
 
 class MyTestCase(unittest.TestCase):
     def test_bad_kms_block(self):
-        # TODO: real tests
         with self.assertRaises(click.exceptions.BadParameter):
-            file = InputFile("test_badkms.yml")
+            input = os.path.join(os.path.dirname(os.path.abspath(__file__)),"test_badkms.yml")
+            file = InputFile(input)
 
     def test_can_read(self):
-        file = InputFile("test.yml")
-        self.assertIsNotNone(file)
+        input = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test.yml")
+        self.assertIsNotNone(input)
 
 
 
