@@ -31,6 +31,7 @@ class InputFile:
     def kms_ctor(self, loader, node):
         try:
             binary_data = base64.b64decode(node.value)
+
             if self.kms_session is None:
                 raise BadParameter("could not establish a KMS session")
             kms = self.kms_session.client('kms')

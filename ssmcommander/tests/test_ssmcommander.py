@@ -6,8 +6,9 @@ import os
 from moto import mock_kms
 
 
-@mock_kms
+
 class MyTestCase(unittest.TestCase):
+    @mock_kms
     def test_bad_kms_block(self):
         with self.assertRaises(click.exceptions.BadParameter):
             input = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_badkms.yml")
