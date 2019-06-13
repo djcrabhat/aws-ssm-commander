@@ -59,7 +59,7 @@ class InputFile:
                 else:
                     key_id = key
 
-                if isinstance(value, str):
+                if isinstance(value, str) or isinstance(value, dict):
                     tree.create_node(key, key_id, parent=parent, data=value)
                 else:
                     tree.create_node(key, key_id, parent=parent)
