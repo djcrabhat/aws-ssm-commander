@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='aws-ssm-commander',
-    version='0.0.2',
+    version='0.0.3',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     include_package_data=True,
     long_description=long_description,
