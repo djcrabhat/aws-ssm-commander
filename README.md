@@ -53,10 +53,21 @@ Takes a yaml input file and a path prefix, and writes params to SSM.
 ~> aws-ssm-commander write /abc/123/ my_file.yml
 ```
 
-##### Saving secrets
-So it's great that you can now store a bunch of KMS params in a config file, that you probably wanna keep in git somewhere.
-But a lot of the stuff you want to put in Param Store are secrets, and you don't store plaintext secrets in git!  Now 
-you could encrypt and decrypt these files on your own, but aws-ssm-commander supports putting a KMS blob in a config file.
+### Saving secrets
+
+There are two ways of saving secrets. First is by supplying a KMS key ID along with the value to encrypt. The second is to use custom KMS to store kms blobs. The former is less secure than the latter.
+
+#### Supplying a KMS key ID along with the value to encrypt
+A KMS key ID can be supplied:
+
+password:
+  kms_key_id: f0e79e90-5672-431d-b100b-84b8ac8f1525
+  value: supersecretpassword
+
+Keep in mind that if the params file is in git, the secret will be exposed in plain text!
+
+#### Using custom KMS keys to store kms blobs in the yaml file
+A lot of the stuff you want to put in Param Store are secrets, and you don't store plaintext secrets in git!  Now you could encrypt and decrypt these files on your own, but aws-ssm-commander supports putting a KMS blob in a config file. To use this method, you **must** use a Customer Managed KMS key.
 
 You can put a KMS secret in your config files by prefixing a value with a `!kms` tag
 
