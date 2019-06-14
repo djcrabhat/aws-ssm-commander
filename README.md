@@ -67,7 +67,7 @@ password:
 Keep in mind that if the params file is in git, the secret will be exposed in plain text!
 
 #### Using custom KMS keys to store kms blobs in the yaml file
-A lot of the stuff you want to put in Param Store are secrets, and you don't store plaintext secrets in git!  Now you could encrypt and decrypt these files on your own, but aws-ssm-commander supports putting a KMS blob in a config file.
+A lot of the stuff you want to put in Param Store are secrets, and you don't store plaintext secrets in git!  Now you could encrypt and decrypt these files on your own, but aws-ssm-commander supports putting a KMS blob in a config file. To use this method, you **must** use a Customer Managed KMS key.
 
 You can put a KMS secret in your config files by prefixing a value with a `!kms` tag
 
