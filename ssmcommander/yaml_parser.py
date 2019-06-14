@@ -59,7 +59,13 @@ class InputFile:
                 else:
                     key_id = key
 
-                if isinstance(value, str) or isinstance(value, dict):
+                is_secure_string = False
+                secure_string_keys = ["value", "kms_key_id"]
+                if isinstance(value, dict):
+                    if all(key in value.keys() for key in secure_string_keys):
+                        is_secure_string = True
+
+                if isinstance(value, str) or is_secure_string:
                     tree.create_node(key, key_id, parent=parent, data=value)
                 else:
                     tree.create_node(key, key_id, parent=parent)
@@ -108,7 +114,7 @@ class InputFile:
                 client.put_parameter(**params)
                 param_count += 1
             except Exception as ex:
-                log.exception("error witting to ssm")
+                log.exception("error writing '{}' to ssm".format(leaf.tag))
                 secho("cannot write to SSM: {}".format(ex), fg='red')
 
         secho("Wrote {} params to SSM on path {}".format(param_count, prefix))

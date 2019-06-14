@@ -7,3 +7,6 @@ section_c:
   a:
     little:
       more: nested
+section_d:
+  value: foobar
+  kms_key_id: bar
