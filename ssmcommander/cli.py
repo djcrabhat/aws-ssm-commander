@@ -3,7 +3,6 @@ from ssmcommander.tree import Tree
 from ssmcommander.yaml_parser import InputFile
 from ssmcommander import CommanderSession
 import logging
-import boto3
 
 log = logging.getLogger()
 
