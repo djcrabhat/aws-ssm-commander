@@ -5,5 +5,5 @@ updates:
   schedule:
     interval: daily
   commit-message:
-    prefix: :arrow_up:
-    prefix-development: :technologist:
+    prefix: ":arrow_up:"
+    prefix-development: ":technologist:"
